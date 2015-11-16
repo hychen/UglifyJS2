@@ -33,6 +33,7 @@ UglifyJS.AST_Node.warn_function = function(txt) {
 exports.minify = function(files, options) {
     options = UglifyJS.defaults(options, {
         spidermonkey : false,
+        outFile: null,
         outSourceMap : null,
         sourceRoot   : null,
         inSourceMap  : null,
@@ -92,7 +93,7 @@ exports.minify = function(files, options) {
     }
     if (options.outSourceMap) {
         output.source_map = UglifyJS.SourceMap({
-            file: options.outSourceMap,
+            file: options.outFile,
             orig: inMap,
             root: options.sourceRoot
         });

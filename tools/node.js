@@ -55,12 +55,15 @@ exports.minify = function(files, options) {
         if (typeof files == "string")
             files = [ files ];
         files.forEach(function(file, i){
+            var filename = options.fromString
+                    ? (typeof file === 'object' ? file.filename : i)
+                    : file;
             var code = options.fromString
-                ? file
+                ? (typeof file === 'object' ? file.content : file)
                 : fs.readFileSync(file, "utf8");
-            sourcesContent[file] = code;
+            sourcesContent[filename] = code;
             toplevel = UglifyJS.parse(code, {
-                filename: options.fromString ? i : file,
+                filename: filename,
                 toplevel: toplevel
             });
         });

@@ -34,6 +34,7 @@ exports.minify = function(files, options) {
     options = UglifyJS.defaults(options, {
         spidermonkey : false,
         outFile: null,
+        outSourceMapLineDiff: 0,
         outSourceMap : null,
         sourceRoot   : null,
         inSourceMap  : null,
@@ -98,7 +99,8 @@ exports.minify = function(files, options) {
         output.source_map = UglifyJS.SourceMap({
             file: options.outFile,
             orig: inMap,
-            root: options.sourceRoot
+            root: options.sourceRoot,
+            dest_line_diff: options.outSourceMapLineDiff
         });
         if (options.sourceMapIncludeSources) {
             for (var file in sourcesContent) {
